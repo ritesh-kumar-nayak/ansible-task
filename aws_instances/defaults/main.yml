@@ -1,2 +1,8 @@
 ---
 # defaults file for aws_instances
+region: "us-west-1"
+instance_type: "t2.micro"
+security_group: "default"
+key_pair: "sample-key1"
+ami_ubuntu: "ami-0fc5d935ebf8bc3bc"
+ami_windows: "ami-005f8adf84f8c5057"
