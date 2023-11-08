@@ -7,6 +7,10 @@
     group_id: "{{ security_group }}"
     vpc_subnet_id: "{{subnet}}" 
     exact_count: 1
+    count_tag:
+      Name: "Linux Machine"
+      Project: "liverpool victoria"
+      Owner: "Hexaware"
     wait: true
     assign_public_ip: true
   register: ubuntu_inst
@@ -42,6 +46,10 @@
     group_id: "{{ security_group }}"
     vpc_subnet_id: "{{subnet}}"
     exact_count: 1
+    count_tag:
+      Name: "Windows Machine"
+      Project: "liverpool victoria"
+      Owner: "Hexaware"
     wait: true
     assign_public_ip: true
   register: windows_instance
