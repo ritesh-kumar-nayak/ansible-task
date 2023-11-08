@@ -20,13 +20,13 @@
   add_host:
     name: "{{ item.instances[0].public_ip }}"
     groups: ubuntu_instances
-  with_items: "{{ ubuntu_instance.tagged_instances }}"
-  when: ubuntu_instance.changed
+  with_items: "{{ ubuntu_inst.tagged_instances }}"
+  when: ubuntu_inst.changed
 
 - name: Wait for SSH to be available on Ubuntu Instance
   wait_for:
     host: "{{ item.instances[0].public_ip }}"
     port: 22 #opening the SSH port for the server
     timeout: 300
-  with_items: "{{ ubuntu_instance.tagged_instances }}"
-  when: ubuntu_instance.changed
+  with_items: "{{ ubuntu_inst.tagged_instances }}"
+  when: ubuntu_inst.changed
