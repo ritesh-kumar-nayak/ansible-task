@@ -1,6 +1,6 @@
 ---
 # defaults file for aws_instances
-region: "us-west-1"
+region: "us-east-1"
 instance_type: "t2.micro"
 security_group: "default"
 key_pair: "sample-key1"
