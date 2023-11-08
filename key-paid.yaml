@@ -7,5 +7,6 @@
         name: sample
         region: us-east-2
       register: keyout
-    - debug:
+    - name: debugging  
+      debug:
         var: kayout
