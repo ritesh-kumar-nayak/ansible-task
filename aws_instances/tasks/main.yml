@@ -38,13 +38,14 @@
     region: "{{ region }}"
     key_name: "{{ key_pair }}"
     instance_type: "{{ instance_type }}"
-    image_id: "{{ ami_windows }}"
-    security_group: "{{ security_group }}"
+    image: "{{ ami_windows }}"
+    group_id: "{{ security_group }}"
     vpc_subnet_id: "{{subnet}}"
     count: 1
     wait: true
     assign_public_ip: true
   register: windows_instance
+  
 - name: debugging windows
   debug:
     var: windows_inst
