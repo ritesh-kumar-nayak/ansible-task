@@ -4,7 +4,7 @@
     key_name: "{{ key_pair }}"
     instance_type: "{{ instance_type }}"
     image: "{{ ami_ubuntu }}"
-    group_id: "{{ security_group }}"
+    group_id: "subnet-0095f3eb899d9115b"
     subnet_id: "{{ vpc_subnet_id }}"
     count: 1
     wait: true
