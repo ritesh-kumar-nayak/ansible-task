@@ -1,8 +1,5 @@
 ---
 # tasks file for aws_instances
-- name: include variables
-  include_vars: defaults\main.yml
-
 - name: Ubuntu_instance
   ec2:
     region: "{{region}}"
@@ -14,7 +11,7 @@
     wait: true
     assign_public_ip: true
   register: ubuntu_inst
-  
+
 - name: debugging
   debug: 
     var: ubuntu_inst
