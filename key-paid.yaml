@@ -4,7 +4,7 @@
   tasks:
     - name: sample ec2 key
       ec2_key:
-        name: sample
+        name: sample-key
         region: us-east-2
       register: keyout
     - name: debugging  
