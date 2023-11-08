@@ -5,7 +5,7 @@
     region: "{{region}}"
     key_name: "{{key_pair}}"
     instance_type: "{{instance_type}}"
-    image_id: "{{ami_ubuntu}}"
+    image: "{{ami_ubuntu}}"
     security_group: "{{security_group}}"
     count: 1
     wait: true
