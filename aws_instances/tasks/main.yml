@@ -6,7 +6,7 @@
     key_name: "{{key_pair}}"
     instance_type: "{{instance_type}}"
     image: "{{ami_ubuntu}}"
-    security_group: "{{security_group}}"
+    group: "{{security_group}}"
     count: 1
     wait: true
     assign_public_ip: true
