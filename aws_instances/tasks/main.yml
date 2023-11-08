@@ -15,3 +15,18 @@
 - name: debugging
   debug:
     var: ubuntu_inst
+
+- name: Add Ubuntu Instance to Host Group
+  add_host:
+    name: "{{ item.instances[0].public_ip }}"
+    groups: ubuntu_instances
+  with_items: "{{ ubuntu_instance.tagged_instances }}"
+  when: ubuntu_instance.changed
+
+- name: Wait for SSH to be available on Ubuntu Instance
+  wait_for:
+    host: "{{ item.instances[0].public_ip }}"
+    port: 22 #opening the SSH port for the server
+    timeout: 300
+  with_items: "{{ ubuntu_instance.tagged_instances }}"
+  when: ubuntu_instance.changed
