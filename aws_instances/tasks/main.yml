@@ -49,3 +49,6 @@
 - name: debugging windows
   debug:
     var: windows_inst
+  
+
+  ###    Completed upto Launching the servers . Tomorrow perform linux operatons etc..
