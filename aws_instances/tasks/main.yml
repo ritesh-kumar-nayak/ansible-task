@@ -1,17 +1,16 @@
----
-# tasks file for aws_instances
 - name: Ubuntu_instance
   ec2:
-    region: "{{region}}"
-    key_name: "{{key_pair}}"
-    instance_type: "{{instance_type}}"
-    image: "{{ami_ubuntu}}"
-    
+    region: "{{ region }}"
+    key_name: "{{ key_pair }}"
+    instance_type: "{{ instance_type }}"
+    image: "{{ ami_ubuntu }}"
+    group: "{{ security_group }}"
     count: 1
     wait: true
     assign_public_ip: true
   register: ubuntu_inst
+  ignore_errors: true
 
 - name: debugging
-  debug: 
+  debug:
     var: ubuntu_inst
