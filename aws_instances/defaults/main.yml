@@ -2,7 +2,7 @@
 # defaults file for aws_instances
 region: "us-east-1"
 instance_type: "t2.micro"
-security_group: "sg-00f5cf11a2a24c9b7 - launch-wizard-2"
-key_pair: "Demo"
+security_group: "sg-00f5cf11a2a24c9b7"
+key_pair: "sample-key1"
 ami_ubuntu: "ami-0fc5d935ebf8bc3bc"
 ami_windows: "ami-005f8adf84f8c5057"
