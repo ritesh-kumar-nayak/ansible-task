@@ -6,7 +6,7 @@
     image: "{{ ami_ubuntu }}"
     group_id: "{{ security_group }}"
     vpc_subnet_id: "{{subnet}}" 
-    count: 1
+    exact_count: 1
     wait: true
     assign_public_ip: true
   register: ubuntu_inst
@@ -41,11 +41,11 @@
     image: "{{ ami_windows }}"
     group_id: "{{ security_group }}"
     vpc_subnet_id: "{{subnet}}"
-    count: 1
+    exact_count: 1
     wait: true
     assign_public_ip: true
   register: windows_instance
-  
+
 - name: debugging windows
   debug:
     var: windows_inst
