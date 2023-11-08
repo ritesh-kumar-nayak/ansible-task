@@ -30,3 +30,21 @@
     timeout: 300
   with_items: "{{ ubuntu_inst.tagged_instances }}"
   when: ubuntu_inst.changed
+
+# trying for Windows instance
+
+- name: Launch Windows Instance
+  ec2:
+    region: "{{ region }}"
+    key_name: "{{ key_pair }}"
+    instance_type: "{{ instance_type }}"
+    image_id: "{{ ami_windows }}"
+    security_group: "{{ security_group }}"
+    vpc_subnet_id: "{{subnet}}"
+    count: 1
+    wait: true
+    assign_public_ip: true
+  register: windows_instance
+- name: debugging windows
+  debug:
+    var: windows_inst
