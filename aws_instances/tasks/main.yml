@@ -31,6 +31,45 @@
   with_items: "{{ ubuntu_inst.tagged_instances }}"
   when: ubuntu_inst.changed
 
+- name: Create user
+  become: true
+  user:
+      name: John
+      state: present
+
+
+
+- name: Install nginx
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+    cache_valid_time: 86400
+    
+
+- name: Start & Enable Nginx
+  service:
+      name: nginx
+      state: started
+      enabled: yes
+
+# Generating SSH keys for authentication
+
+- name: Generate SSH key pair using ssh-keygen
+  command: ssh-keygen -t rsa -b 2048 -f ~/.ssh/id_rsa -N ""
+
+# Copying ssh public key to managed instance location 
+- name: Copy SSH public key to Ubuntu instance
+  authorized_key:
+        user: ubuntu  
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+        state: present
+  
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
 # trying for Windows instance
 
 - name: Launch Windows Instance
@@ -50,5 +89,21 @@
   debug:
     var: windows_inst
   
+
+- name: Add Windows Instance to Host Group
+  add_host:
+      name: "{{ item.instances[0].public_ip }}"
+      groups: windows_instances
+  with_items: "{{ windows_instance.tagged_instances }}"
+  when: windows_instance.changed
+
+- name: Wait for WinRM to be available on Windows Instance
+  wait_for:
+    host: "{{ item.instances[0].public_ip }}"
+    port: 5985
+    timeout: 300
+  with_items: "{{ windows_instance.tagged_instances }}"
+  when: windows_instance.changed
+
 
   ###    Completed upto Launching the servers . Tomorrow perform linux operatons etc..
