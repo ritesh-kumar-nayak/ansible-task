@@ -1,0 +1,11 @@
+- name: this playbook is for creating user
+  hosts: all
+  become: true
+  tasks:
+    - name: inclue names to the playbook
+      include_vars+: modules\usernames
+    - name: Creating user {{name}}
+      user:
+        name: "{{ item }}"    # item is a variable that acts just like "i" in for loop
+        state: present
+      loop: "{{name}}"

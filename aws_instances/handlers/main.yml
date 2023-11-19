@@ -1,2 +1,10 @@
 ---
 # handlers file for aws_instances
+  - name: start nginx
+    service:
+      name: nginx
+      state: started
+  - name: Restart Nginx
+    service:
+      name: nginx
+      state: restarted

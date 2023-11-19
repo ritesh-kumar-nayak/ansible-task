@@ -1,0 +1,20 @@
+# service module is used to start and stop an installed service
+# services such as httpd, nginx, apache etc..
+# notify is a keyword that is used with tasks to notify system changes to handlers.
+# handlers are special tasks that are executed only after notified by another task.
+
+---
+- name: httpd service install and start or stop services
+  hosts: Webservers
+  become: true
+  tasks:
+    - name: install httpd
+      yum:
+        name: httpd
+        state: installed
+      notify: start httpd service
+  handlers:  
+    - name: start httpd service
+      service:
+        name: httpd
+        state: started

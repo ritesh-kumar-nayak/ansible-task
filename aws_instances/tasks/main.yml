@@ -37,7 +37,7 @@
       name: John
       state: present
 
-
+# Nginx service installation
 
 - name: Install nginx
   apt:
@@ -45,13 +45,9 @@
     state: present
     update_cache: yes
     cache_valid_time: 86400
-    
-
-- name: Start & Enable Nginx
-  service:
-      name: nginx
-      state: started
-      enabled: yes
+  notify: 
+    - start nginx
+    - Restart Nginx
 
 # Generating SSH keys for authentication
 
@@ -65,11 +61,8 @@
         key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
         state: present
   
-  handlers:
-    - name: Restart Nginx
-      service:
-        name: nginx
-        state: restarted
+
+
 # trying for Windows instance
 
 - name: Launch Windows Instance
@@ -106,4 +99,3 @@
   when: windows_instance.changed
 
 
-  ###    Completed upto Launching the servers . Tomorrow perform linux operatons etc..

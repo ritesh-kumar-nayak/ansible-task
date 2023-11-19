@@ -1,0 +1,13 @@
+---
+- name: this playbook is for creating user
+  hosts: all
+  become: true
+  vars:             # here we are definig variables within the playbook  itself
+     name: tiku
+     age: 19
+     weight: 72
+  tasks:
+    - name: Creating user {{name}}
+      user:
+        name: "{{ name }}"   
+        state: present 
