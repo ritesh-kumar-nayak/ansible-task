@@ -60,7 +60,7 @@
         user: ubuntu  
         key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
         state: present
-  
+
 
 
 # trying for Windows instance
