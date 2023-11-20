@@ -83,19 +83,44 @@
     var: windows_inst
   
 
-- name: Add Windows Instance to Host Group
-  add_host:
-      name: "{{ item.instances[0].public_ip }}"
-      groups: windows_instances
-  with_items: "{{ windows_instance.tagged_instances }}"
-  when: windows_instance.changed
+# Create Directories and Set Permissions on Windows
 
-- name: Wait for WinRM to be available on Windows Instance
-  wait_for:
-    host: "{{ item.instances[0].public_ip }}"
-    port: 5985
-    timeout: 300
-  with_items: "{{ windows_instance.tagged_instances }}"
-  when: windows_instance.changed
+- name: Create directories
+  win_file:
+      path: C:\Remote
+      state: directory
 
+- name: Set ownership
+  win_owner:
+    path: C:\Remote
+    owner: Administrator
+    recurse: yes
 
+- name: Set permissions
+  win_acl:
+    path: C:\Remote
+    user: Administrator
+    rights: full_control
+    type: allow
+    state: present
+
+# Creating user
+
+- name: Create a user
+  win_user:
+    name: UserRitesh
+    password: Ritesh123
+    state: present
+
+# Creating Group
+- name: Create a group
+  win_group:
+    name: developers
+    state: present
+
+# Adding user to group    
+- name: Add user to a group
+  win_group_membership:
+    name: UserRitesh
+    groups: developers
+    state: present
