@@ -6,4 +6,4 @@ security_group: "sg-00f5cf11a2a24c9b7"
 key_pair: "sample-key1"
 ami_ubuntu: "ami-0fc5d935ebf8bc3bc"
 ami_windows: "ami-005f8adf84f8c5057"
-subnet: "subnet-0095f3eb899d9115b"
+subnet: "subnet-0095f311eb899d9115bb1" #chaged rge subnet id
