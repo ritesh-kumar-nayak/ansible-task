@@ -1,0 +1,14 @@
+---
+
+- name: this playbook is to create file
+  hosts: all
+  become: true
+  tasks:
+    - name: file module
+      file:   #this is the file modue
+        state: touch  # this is the action to be performed. 
+        path: /home/ansadmin/filebyAnsible.yaml
+
+
+# command to run the playbook: ansible-playbook -i hosts createFile.yaml
+# command to list the hosts: ansible all -i hosts --list-hosts

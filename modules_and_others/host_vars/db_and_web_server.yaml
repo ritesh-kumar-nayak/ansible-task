@@ -1,0 +1,12 @@
+# Variable file for host db_and_web_server
+
+ansible_host: 192.168.1.14
+ansible_ssh_pass: Passw0rd
+
+# this is for fileSeparation1.yml assignment
+
+
+# this part is for fileSeparation2.yml
+db_name: employee_db
+db_user: db_user
+db_password: Passw0rd
