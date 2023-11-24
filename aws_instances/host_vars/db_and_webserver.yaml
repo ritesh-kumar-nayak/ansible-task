@@ -1,0 +1,8 @@
+# Here we store all the variables 
+# the folder name must be host_vars because ansible first search for this folder
+
+ansible_ssh_pass: PasswOrd
+ansible_host: 10338984.72739.273
+
+#This file is just for undersrading purpose
+# Host variables folder must be named host_vars and group variables folder must be named group_vars
