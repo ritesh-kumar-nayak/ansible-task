@@ -106,3 +106,97 @@ Task: Move the below tasks to the new file and add include statement in the main
 - name: Install Python Flask dependencies
 - name: Copy web-server code
 - name: Start web-application
+
+Ansible Roles
+==============
+Role_Task-1
+--------
+Introduction: In the previous Exercises we moved tasks to a separate tasks file and used include statements to include tasks. Now we will start using Roles to organize and reuse our work. We have created a new role using the following command 'ansible-galaxy init mysql_db'. This has created a folder structure for us.  See the folder structure in the attached image. 
+
+Task: First, move (simply cut and paste) the below tasks into roles/mysql_db/tasks/main.yml file. 
+
+- Install MySQL database 
+- Start Mysql Service 
+- Create Application Database 
+- Create Application DB User 
+Note: We will leave 'Install Dependencies' there, since it is not specific to database or web. We will add roles statement in a later Exercise.
+
+Role_Task-2
+----------
+Introduction: We have now created a new role using the following command 'ansible-galaxy init flask_web'. This has created a folder structure for us. 
+
+Task: Move the web related tasks to roles/flask_web/tasks/main.yml file. 
+
+- Install Python Flask dependencies 
+- Copy web-server code 
+- Start web-application 
+Note: We will leave Install Dependencies there, since it is not specific to database or web. We will add roles statement in a later exercise.
+
+Role_Task-3
+------------
+Introduction: Let us also create a 3rd role called Python to install Python and its dependencies. A command has been run to create a new role called python and the required files are in place. 
+
+Task: Move the first task to "Install dependencies" into "roles/python/tasks/main.yml" file. Remove the "tasks" directive from the play and leave it empty. 
+
+Note: We will add roles statement in a later exercise.
+
+Role_Task-4
+------------
+Task: To tie it all together, add roles directive to the playbook and add the roles in the following order:- 
+
+- python 
+- mysql_db 
+- flask_web
+
+
+Role_Task-5
+------------
+Introduction: We are now tasked to re-use our work to split the Architecture of our application from a monolithic (all-in-one) to distributed. Note that the inventory file is now updated with two separate servers - db_server and web_server.  Also separate host_vars file have been created for each of them. 
+
+Task: Update the current play to target "db_server" host and apply roles "python" and "mysql_db" to it. 
+
+Note: We need python dependencies on the sql server as well.
+
+Role_Task-6 (Refer ansible-task\modules_and_others\playbook.yaml)
+------------
+Introduction: We only have db server right now. Let us create a new play to install and configure web application on the web server. 
+
+Task: Create a new play called "Deploy a web server" and target host "web_server". Apply the roles "python" and "flask_web" to it.
+
+Asynchronous Actions
+=====================
+Asynchronous Actions - 1
+-------------------------
+Introduction: We have added a new play at the end of our playbook to monitor the web application for 6 minutes to ensure its running OK. However, we don't want to hold the SSH Connection for the duration of this execution. 
+
+Task: Make the monitoring task Asynchronous by adding async option to the task to wait for 6 minutes. 
+
+The default polling interval is 10 seconds. We think that is too often. 
+
+Task: Change it to poll every 30 seconds. 
+
+Asynchronous Actions - 2
+-------------------------------
+Introduction: We have now added a new monitoring play to monitor the database. However, our playbook spends 6 minutes monitoring web application and once that completes monitors database for 6 minutes. We would like to make this parallel. 
+
+Task: Update poll value for both tasks to 0 to "fire and forget" the monitoring tasks. 
+
+ We do not want to just "fire and forget", we would like to "check on it later" too. 
+
+Task: Register the results of the monitoring tasks into variables "webapp_result" and "database_result".
+
+
+Error Handling
+=================
+Error Handling - 1
+--------------------
+Introduction: When ever a host fails execution of a task, Ansible removes that host from the list and continues execution of playbook with the remaining hosts. We would like Ansible to stop execution of the entire playbook if a single server was to fail. 
+
+Task: Set the any_errors_fatal option to True for the playbook.
+
+Error Handling - 2
+---------------------
+Introduction: We have added a new task at the end to send a notification email, once all tasks are complete. However, the SMTP server is not very stable and these emails are not critical. We would like Ansible to ignore even if the email task fails 
+
+Task: Set the ignore_errors option on the mail task to "yes" to ignore errors.
+

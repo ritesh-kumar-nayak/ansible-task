@@ -1,0 +1,28 @@
+# This playbook is created to run the roles created from ansible assignment
+# Role_Task-4
+
+-name: Deploy a web application
+  hosts: db_and_web_server
+  roles:
+    - python
+    - mysql_db
+    - flask_web
+
+# Role_Task-5
+# Here we want to apply the python and mysql_db roles to only db_server group in inventory 
+# Hence we have omnuted the flask_web role
+-name: Deploy a mysql DB
+  hosts: db_server
+  roles:
+    - python
+    - mysql_db
+    #- flask_web
+
+# Role_Task-6
+# Here we want to apply the python and flask_web roles to only db_server group in inventory 
+# Hence we have omnuted the flask_web role
+- name: Deploy a web server
+  hosts: web_server
+  roles:
+    - python
+    - flask_web

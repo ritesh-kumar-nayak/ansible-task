@@ -1,0 +1,36 @@
+-
+  name: Deploy a mysql DB
+  hosts: db_server
+  roles:
+    - python
+    - mysql_db
+
+-
+  name: Deploy a Web Server
+  hosts: web_server
+  roles:
+    - python
+    - flask_web
+
+-
+  name: Monitor Web Application for 6 Minutes
+  hosts: web_server
+  command: /opt/monitor_webapp.py
+  async: 360
+  poll: 0   # This is to "fire and forget" the monitoring tasks. 
+  register: webapp_resut    # Register the results of the monitoring tasks into variables "webapp_result"
+-
+  name: Monitor Database for 6 Minutes
+  hosts: db_server
+  command: /opt/monitor_database.py
+  async: 360
+  poll: 0 # This is to "fire and forget" the monitoring tasks. 
+  register: database_result   #Register the results of the monitoring tasks into variables "database_result"
+
+  - name: check status of the tasks
+    async_status: jid={{webapp_result.ansible_job_id}}  # async_status checks the status of async task
+    register: job_result
+    until: job_result.finished
+    retires: 30
+
+# NOTE: All the module does not support async task
