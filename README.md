@@ -53,7 +53,7 @@ windows_vm ansible_host=10.0.0.6(Private IP of Windows Managed VM)
 
 [windows:vars] (#Variables required for windows host)
 ansible_user=ansible				(User can be different as well)
-ansible_password=Azure#12345678		(Give the correct password that u created during launching the VM)
+ansible_password=Azure$$%^#dyudg37		(Give the correct password that u created during launching the VM)
 ansible_connection=psrp				( here the connection for windows is PSRP)
 ansible_psrp_cert_validation=ignore
 ansible_psrp_protocol=http
